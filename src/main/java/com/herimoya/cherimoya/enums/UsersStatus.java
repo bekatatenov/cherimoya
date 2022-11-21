@@ -1,6 +1,7 @@
 package com.herimoya.cherimoya.enums;
 
 public enum UsersStatus {
-    FUNCTION,
+    ACTIVE,
+    BANNED,
     DELETED
 }
