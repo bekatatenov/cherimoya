@@ -5,5 +5,6 @@ public enum RoleStatus {
     RECIPIENT,
     GUEST,
     MODER,
-    ADMIN
+    ADMIN,
+    GUEST
 }
