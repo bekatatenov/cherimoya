@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Controller
 public class UserController {
-    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     private UserService userService;
@@ -54,7 +54,7 @@ public class UserController {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRecipent(false);
         user.setRoles(String.valueOf(RoleStatus.USER));
-        user.setUsersStatus(String.valueOf(UsersStatus.FUNCTION));
+        user.setUsersStatus(String.valueOf(UsersStatus.ACTIVE));
         this.userService.save(user);
         return "login";
     }
