@@ -165,5 +165,10 @@ public class UserController {
         this.userService.admin(user.getEmail());
         return "login";
     }
+    @GetMapping("/delete")
+    public String delete(){
+        return "delete_users";
+    }
+
 
 }
