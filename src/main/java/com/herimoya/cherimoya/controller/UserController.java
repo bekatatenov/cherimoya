@@ -58,5 +58,10 @@ public class UserController {
         this.userService.save(user);
         return "login";
     }
+    @GetMapping("/delete")
+    public String delete(){
+        return "delete_users";
+    }
+
 
 }
