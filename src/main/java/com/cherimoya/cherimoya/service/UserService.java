@@ -1,11 +1,9 @@
-package com.herimoya.cherimoya.service;
+package com.cherimoya.cherimoya.service;
 
-import com.herimoya.cherimoya.dao.UserRepository;
-import com.herimoya.cherimoya.entity.User;
+import com.cherimoya.cherimoya.dao.UserRepository;
+import com.cherimoya.cherimoya.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserService {

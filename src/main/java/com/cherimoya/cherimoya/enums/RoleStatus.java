@@ -1,4 +1,4 @@
-package com.herimoya.cherimoya.enums;
+package com.cherimoya.cherimoya.enums;
 
 public enum RoleStatus {
     USER,

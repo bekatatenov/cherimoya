@@ -1,10 +1,8 @@
-package com.herimoya.cherimoya.dao;
+package com.cherimoya.cherimoya.dao;
 
-import com.herimoya.cherimoya.entity.User;
+import com.cherimoya.cherimoya.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {

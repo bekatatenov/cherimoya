@@ -1,4 +1,4 @@
-package com.сherimoya.cherimoya.config;
+package com.cherimoya.cherimoya.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +16,11 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+    public void onAuthenticationSuccess(HttpServletRequest request,
+                                        HttpServletResponse response, Authentication authentication)
             throws IOException {
         response.setStatus(HttpServletResponse.SC_OK);
         response.sendRedirect("/hello");
+
     }
 }
-

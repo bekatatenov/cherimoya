@@ -1,9 +1,9 @@
-package com.herimoya.cherimoya.controller;
+package com.cherimoya.cherimoya.controller;
 
-import com.herimoya.cherimoya.entity.User;
-import com.herimoya.cherimoya.enums.RoleStatus;
-import com.herimoya.cherimoya.enums.UsersStatus;
-import com.herimoya.cherimoya.service.UserService;
+import com.cherimoya.cherimoya.entity.User;
+import com.cherimoya.cherimoya.service.UserService;
+import com.cherimoya.cherimoya.enums.RoleStatus;
+import com.cherimoya.cherimoya.enums.UsersStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;

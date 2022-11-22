@@ -1,7 +1,6 @@
-package com.herimoya.cherimoya.entity;
+package com.cherimoya.cherimoya.entity;
 
-import com.herimoya.cherimoya.enums.DocumentStatus;
-import com.herimoya.cherimoya.enums.RoleStatus;
+import com.cherimoya.cherimoya.enums.DocumentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
