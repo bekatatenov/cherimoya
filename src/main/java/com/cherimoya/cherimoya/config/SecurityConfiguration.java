@@ -71,33 +71,26 @@ import javax.sql.DataSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
-
     @Autowired
     private DataSource dataSource;
-
 
 
     @Value("${spring.queries.users-query}")
     private String usersQuery;
 
 
-
     @Value("${spring.queries.roles-query}")
     private String rolesQuery;
 
 
-
     @Bean
-    public PasswordEncoder passwordEncoder()
-    {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
 
-
     @Autowired
     CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler;
-
 
 
     @Override
@@ -110,14 +103,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder());
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
 
-
         http.
                 authorizeRequests()
-                .antMatchers("/", "/login","/registration","hello","/delete-users-by-email").permitAll()
+                .antMatchers("/", "/login", "/registration", "hello", "/delete-users-by-email").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()
@@ -132,14 +125,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**","/templates/**" ,"/static/**", "/registration");
+                .antMatchers("/resources/**", "/templates/**", "/static/**", "/registration");
     }
-
 
 
 }
