@@ -11,6 +11,6 @@ public class BalanceService {
     BalanceRepository balanceRepository;
 
     public void save(Balance balance) {
-        this.balanceRepository.save(balance)
+        this.balanceRepository.save(balance);
     }
 }

@@ -1,7 +1,6 @@
 package com.cherimoya.cherimoya.dao;
 
 import com.cherimoya.cherimoya.entity.Document;
-import com.cherimoya.cherimoya.entity.User;
 import com.cherimoya.cherimoya.enums.DocumentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
