@@ -6,7 +6,8 @@
 </head>
 <body>
 <form th:action="@{/delete-users-by-email}" enctype="multipart/form-data" method="post" th:object="${user}">
-    <div><label> Email : <input th:value="${email}" type="text" name="email"/> </label></div>
+    <div><label> Email : <!--/*@thymesVar id="email" type=""*/-->
+    <input th:value="${email}" type="text" name="email"/> </label></div>
     <div><input type="submit" value="DELETE USERS"/></div>
 </form>
 </body>

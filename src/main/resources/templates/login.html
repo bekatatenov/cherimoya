@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:if="${param.error} != null">
-  Invalid username and password.
+  Invalid username or password.
 </div>
 <div th:if="${param.logout} != null">
   You have been logged out.
@@ -17,6 +17,7 @@
   <div>
     <input type="submit" value="Sign In"/>
     <a th:href="@{/registration}"><input type="button" value="Sign UP"/></a>
+    <a th:href="@{/delete-users}"><input type="button" value="Delete users"/></a>
   </div>
 </form>
 </body>

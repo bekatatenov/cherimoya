@@ -2,6 +2,7 @@ package com.herimoya.cherimoya.entity;
 
 import com.herimoya.cherimoya.enums.DocumentStatus;
 import com.herimoya.cherimoya.enums.RoleStatus;
+import com.herimoya.cherimoya.enums.UsersStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,6 +53,7 @@ public class User {
     private String roles;
 
     @Column(name = "USERS_STATUS")
-    private String usersStatus;
+    @Enumerated(EnumType.STRING)
+    private UsersStatus usersStatus;
 
 }
