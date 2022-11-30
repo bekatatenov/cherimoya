@@ -17,10 +17,11 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
-    @RequestMapping(value="/product-registration", method = RequestMethod.POST)
-    public String setImage(@ModelAttribute Image image, @RequestParam(value="image",required=false) MultipartFile file, Post post) {
-        image.setUserId(post.getUserId());
-        image.setPostId(post.getId());
+    @RequestMapping(value="/load-image", method = RequestMethod.POST)
+    public String setImage(@ModelAttribute Image image, @RequestParam(value="image",required=false) MultipartFile file) {
+//        Post post = new Post(2,)
+
+//        image.setPost(post);
         try{
             byte[] image64 = Base64.encodeBase64(file.getBytes());
             String result = new String(image64);
@@ -30,7 +31,7 @@ public class ImageController {
         }
 
         imageService.save(image);
-        return "redirect:/product-list";
+        return "hello";
     }
 
 }

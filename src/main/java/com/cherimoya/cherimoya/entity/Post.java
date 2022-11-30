@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -15,8 +16,9 @@ import javax.persistence.*;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+//    @OneToMany(targetEntity = Image.class, mappedBy = "image", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Long id;
 
-    @Column(name = "user_id")
-    private long userId;
+    @ManyToOne
+    private User user;
 }

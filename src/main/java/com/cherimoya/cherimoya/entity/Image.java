@@ -15,17 +15,14 @@ import javax.persistence.*;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "index")
-    private int index;
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "")
 
     @Column(name = "image")
     private String image;
 
-    @Column(name = "post_id")
-    private long postId;
-
-    @Column(name = "user_id")
-    private long userId;
+    @ManyToOne
+    private Post post;
 }

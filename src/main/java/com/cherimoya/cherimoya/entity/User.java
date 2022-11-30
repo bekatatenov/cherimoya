@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Getter
@@ -18,7 +19,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OneToMany()
     private long id;
 
     @Column(name = "NICKNAME")
@@ -53,5 +53,4 @@ public class User {
 
     @Column(name = "USERS_STATUS")
     private String usersStatus;
-
 }
