@@ -1,7 +1,14 @@
 package com.herimoya.cherimoya.enums;
 
-public enum UsersStatus {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum UsersStatus implements GrantedAuthority{
     ACTIVE,
     BANNED,
-    DELETED
+    DELETED;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }
