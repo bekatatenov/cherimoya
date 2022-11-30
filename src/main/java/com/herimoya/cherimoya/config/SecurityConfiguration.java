@@ -1,55 +1,8 @@
-//package com.example.itweb3.config;
-//
-//import com.example.itweb3.service.UserService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Qualifier;
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.builders.WebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-//
-//import javax.sql.DataSource;
-//
-//
-//@Configuration
-//@EnableWebSecurity
-//public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-//
-//    @Autowired
-//    UserService userDetailsService;
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .csrf().disable()
-//                .authorizeRequests().antMatchers("/getRequisite", "/pay", "/rollback").permitAll()
-//                .anyRequest().authenticated()
-//                .and().httpBasic()
-//                .and().sessionManagement().disable();
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    @Override
-//    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-//        builder.userDetailsService(userDetailsService);
-//    }
-//
-//}
 package com.herimoya.cherimoya.config;
 
 
+import com.herimoya.cherimoya.enums.RoleStatus;
+import com.herimoya.cherimoya.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -70,7 +23,8 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private DataSource dataSource;
@@ -101,14 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
+    protected void configure(AuthenticationManagerBuilder builder)
             throws Exception {
-        auth.
-                jdbcAuthentication()
-                .usersByUsernameQuery(usersQuery)
-                .authoritiesByUsernameQuery(rolesQuery)
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder());
+        builder.userDetailsService(userService);
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -117,7 +66,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.
                 authorizeRequests()
-                .antMatchers("/", "/login","/registration","hello","/delete-users-by-email").permitAll()
+                .antMatchers("/","/admin").hasAnyAuthority(RoleStatus.ADMIN.name())
+                .antMatchers("/","/moder").hasAnyAuthority(RoleStatus.MODER.name())
+                .antMatchers("/","user").hasAnyAuthority(RoleStatus.USER.name())
+                .antMatchers("/", "/login","/registration","hello","/delete-users","/delete-users-by-email").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()

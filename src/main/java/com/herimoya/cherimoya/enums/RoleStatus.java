@@ -1,10 +1,15 @@
 package com.herimoya.cherimoya.enums;
 
-public enum RoleStatus {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum RoleStatus implements GrantedAuthority  {
     USER,
     RECIPIENT,
-    GUEST,
     MODER,
-    ADMIN,
-    GUEST
+    ADMIN;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }
