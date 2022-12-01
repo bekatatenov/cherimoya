@@ -110,7 +110,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.
                 authorizeRequests()
-                .antMatchers("/", "/login", "/registration", "hello", "/delete-users-by-email", "load-image").permitAll()
+                .antMatchers("/", "/login", "/registration", "hello", "/delete-users-by-email", "/load-image").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()
