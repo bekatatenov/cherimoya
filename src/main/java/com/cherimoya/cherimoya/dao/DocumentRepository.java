@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DocumentRepository extends JpaRepository<Document,Long>{
-    Document findDocumentBySecretStatusAndUserIDAndType(DocumentStatus status, long userID,String type);
+    Document findDocumentBySecretStatusAndUserIDAndType(DocumentStatus status, long userID, String type);
 }

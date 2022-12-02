@@ -1,9 +1,9 @@
 package com.cherimoya.cherimoya.controller;
 
 import com.cherimoya.cherimoya.entity.User;
-import com.cherimoya.cherimoya.service.UserService;
 import com.cherimoya.cherimoya.enums.RoleStatus;
 import com.cherimoya.cherimoya.enums.UsersStatus;
+import com.cherimoya.cherimoya.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,6 +24,7 @@ public class UserController {
         return "login";
     }
 
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginPage(@RequestParam(value = "error",required = false)String error,
             @RequestParam(value = "logout",required = false)String logout){
@@ -39,23 +40,58 @@ public class UserController {
         return model;
     }
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET )
+    @RequestMapping(value = "/main", method = RequestMethod.GET )
     public String hello(){
-        return "hello";
+        return "main";
     }
 
     @GetMapping("/registration")
     public String registrationPage(){
         return "registration";
     }
+
+    @GetMapping("/adminPage")
+    public String adminPage(){
+        return "admin";
+    }
+
+    @GetMapping("/moderPage")
+    public String moderPage(){
+        return "moder";
+    }
+
+    @GetMapping("/userPage")
+    public String userPage(){
+        return "user";
+    }
+
+    @GetMapping("/recipientPage")
+    public String recipientPage(){
+        return "recipient";
+
+    }
+
     @PostMapping(value = "/registration")
     public String registration(@ModelAttribute User user){
         user.setDate(new Date());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRecipent(false);
         user.setRoles(String.valueOf(RoleStatus.USER));
-        user.setUsersStatus(String.valueOf(UsersStatus.ACTIVE));
+        user.setUsersStatus(UsersStatus.ACTIVE);
         this.userService.save(user);
+        return "login";
+    }
+
+
+    @GetMapping("/delete-users")
+    public String delete(){
+        return "delete";
+    }
+
+
+    @PostMapping(value = "/delete-users-by-email")
+    public String deleteByEmail(@ModelAttribute User user){
+        this.userService.update(user.getEmail());
         return "login";
     }
 
