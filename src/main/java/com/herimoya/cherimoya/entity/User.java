@@ -4,17 +4,17 @@ import com.herimoya.cherimoya.enums.DocumentStatus;
 import com.herimoya.cherimoya.enums.RoleStatus;
 import com.herimoya.cherimoya.enums.UsersStatus;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity(name = "USERS")
 public class User {
 
@@ -34,35 +34,29 @@ public class User {
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
+    @Column(name = "CREATED_DATE")
+    private Date date;
+
     @Column(name = "REQUISITE")
     private String requisite;
 
     @Column(name = "PROFILE_PHOTO")
     private String profilePhoto;
 
-    @Column(name = "CREATED_DATE")
-    private Date date;
-
     @Column(name = "RECIPENT")
     private boolean isRecipent;
 
-    @Column
-    @Enumerated(EnumType.STRING)
+    @Column(name = "DOCUMENTSTATUS")
     private DocumentStatus documentStatus;
 
     @Column(name = "ROLES")
     private String roles;
-
 
     @Column(name = "USERS_STATUS")
     @Enumerated(EnumType.STRING)
     private UsersStatus usersStatus;
 
     @Column
-    private boolean active;
-
-
-    @OneToOne(cascade = CascadeType.REMOVE)
-    private Bucket bucket;
+    private Boolean active;
 
 }
