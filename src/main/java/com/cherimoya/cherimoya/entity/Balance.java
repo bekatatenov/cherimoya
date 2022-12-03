@@ -17,9 +17,6 @@ public class Balance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-
-
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
@@ -29,5 +26,6 @@ public class Balance {
     private long count;
 
     @Column(name="status")
+    @Enumerated(EnumType.STRING)
     private BalanceStatus status;
 }

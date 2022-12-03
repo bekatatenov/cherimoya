@@ -82,7 +82,6 @@ public class UserController {
         return "login";
     }
 
-
     @GetMapping("/delete-users")
     public String delete(){
         return "delete";
@@ -94,6 +93,4 @@ public class UserController {
         this.userService.update(user.getEmail());
         return "login";
     }
-
-
 }

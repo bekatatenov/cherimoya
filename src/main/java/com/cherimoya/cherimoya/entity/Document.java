@@ -19,8 +19,8 @@ public class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "image")
-    private String image;
+    @Column(name = "document")
+    private String document;
 
     @Column(name = "status")
     private DocumentStatus secretStatus;
