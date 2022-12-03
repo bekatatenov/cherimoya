@@ -23,23 +23,16 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Value("${spring.queries.users-query}")
+    private String usersQuery;
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private DataSource dataSource;
-
-
-
-    @Value("${spring.queries.users-query}")
-    private String usersQuery;
-
-
-
-    @Value("${spring.queries.roles-query}")
-    private String rolesQuery;
-
-
 
     @Bean
     public PasswordEncoder passwordEncoder()
@@ -52,12 +45,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler;
 
-
-
     @Override
-    protected void configure(AuthenticationManagerBuilder builder)
+    protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        builder.userDetailsService(userService);
+        auth.
+                jdbcAuthentication()
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder());
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -69,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/admin").hasAnyAuthority(RoleStatus.ADMIN.name())
                 .antMatchers("/","/moder").hasAnyAuthority(RoleStatus.MODER.name())
                 .antMatchers("/","user").hasAnyAuthority(RoleStatus.USER.name())
-                .antMatchers("/", "/login","/registration","hello","/delete-users","/delete-users-by-email").permitAll()
+                .antMatchers("/", "/login","/registration","hello","/delete-users","/delete-users-by-email","/active-users","/active-users-by-email").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()
