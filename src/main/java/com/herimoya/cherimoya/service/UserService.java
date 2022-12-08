@@ -26,7 +26,7 @@ import java.util.Optional;
         user.setDate(new Date());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRecipent(false);
-        user.setRoles(String.valueOf(RoleStatus.USER));
+        user.setRoles((RoleStatus.USER));
         user.setUsersStatus(UsersStatus.ACTIVE);
         user.setActive(Boolean.TRUE);
         this.userRepository.save(user);
@@ -59,7 +59,7 @@ import java.util.Optional;
     public void admin(String email) {
         com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
         if (user != null) {
-            user.setRoles(String.valueOf(RoleStatus.ADMIN));
+            user.setRoles(RoleStatus.ADMIN);
             this.userRepository.save(user);
         }
     }
@@ -67,7 +67,7 @@ import java.util.Optional;
     public void moder(String email) {
         com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
         if (user != null) {
-            user.setRoles(String.valueOf(RoleStatus.MODER));
+            user.setRoles(RoleStatus.MODER);
             this.userRepository.save(user);
         }
     }
@@ -75,7 +75,7 @@ import java.util.Optional;
     public void user(String email) {
         com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
         if (user != null) {
-            user.setRoles(String.valueOf(RoleStatus.USER));
+            user.setRoles(RoleStatus.USER);
             this.userRepository.save(user);
         }
     }
@@ -83,7 +83,7 @@ import java.util.Optional;
     public void recipient(String email) {
         com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
         if (user != null) {
-            user.setRoles(String.valueOf(RoleStatus.RECIPIENT));
+            user.setRoles(RoleStatus.RECIPIENT);
             this.userRepository.save(user);
         }
     }
@@ -101,7 +101,7 @@ import java.util.Optional;
         }
         com.herimoya.cherimoya.entity.User user = optionalUser.get();
         List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRoles());
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(String.valueOf(user.getRoles()));
         grantedAuthorities.add(simpleGrantedAuthority);
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), grantedAuthorities);
     }
@@ -112,6 +112,10 @@ import java.util.Optional;
 
     public void update(com.herimoya.cherimoya.entity.User user) {
         this.userRepository.save(user);
+    }
+
+    public List<User> findAllUsers(){
+        return userRepository.findAll();
     }
 }
 

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.context.annotation.EnableMBeanExport;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -50,7 +51,8 @@ public class User {
     private DocumentStatus documentStatus;
 
     @Column(name = "ROLES")
-    private String roles;
+    @Enumerated(EnumType.STRING)
+    private RoleStatus roles;
 
     @Column(name = "USERS_STATUS")
     @Enumerated(EnumType.STRING)
