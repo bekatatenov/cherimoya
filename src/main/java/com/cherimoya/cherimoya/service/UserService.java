@@ -19,12 +19,14 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     public void save(User user){
-
-            this.userRepository.save(user);
-
+        if (userRepository.findByEmail(user.getEmail())==null||userRepository.findByName(user.getName())==null) this.userRepository.save(user);
     }
     public void getEmail(String email){
         User user = this.userRepository.findByEmail(email);
+    }
+
+    public User getId(Long id){
+        return this.userRepository.findById(id).get();
     }
 
     public void update(String email) {
@@ -43,7 +45,7 @@ public class UserService implements UserDetailsService {
         }
         User user = optionalUser.get();
         List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRoles());
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(String.valueOf(user.getRole()));
         grantedAuthorities.add(simpleGrantedAuthority);
 
         return new org.springframework.security.core.userdetails.User(user.getName(),user.getPassword(),grantedAuthorities);

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -17,13 +18,17 @@ public class Balance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "requisites")
+    private String requisites;
+
     @Column(name = "cash")
-    private long count;
+    private BigDecimal count;
 
     @Column(name="status")
     @Enumerated(EnumType.STRING)

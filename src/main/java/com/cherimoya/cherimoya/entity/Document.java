@@ -23,14 +23,14 @@ public class Document {
     private String document;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private DocumentStatus secretStatus;
 
-    @Column(name = "userID")
-    private long userID;
+//    @JoinColumn(name = "userID")
+//    @ManyToOne
+//    @MapsId
+//    private User user;
 
     @Column(name = "type")
     private String type;
-
-    @Column(name="text")
-    private String text;
 }

@@ -1,6 +1,7 @@
 package com.cherimoya.cherimoya.service;
 
 import com.cherimoya.cherimoya.dao.BalanceRepository;
+import com.cherimoya.cherimoya.dao.UserRepository;
 import com.cherimoya.cherimoya.entity.Balance;
 import com.cherimoya.cherimoya.entity.User;
 import com.cherimoya.cherimoya.enums.BalanceStatus;
@@ -12,12 +13,27 @@ public class BalanceService {
     @Autowired
     private BalanceRepository balanceRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public void blockBalance(User user) {
         Balance balance = this.balanceRepository.findBalanceByUser(user);
         if (balance != null ) {
             balance.setStatus(BalanceStatus.BLOCK);
             this.balanceRepository.save(balance);
         }
+    }
+
+    public void blockBalance(Long id) {
+        Balance balance = this.balanceRepository.findBalanceById(id);
+        if (balance != null ) {
+            balance.setStatus(BalanceStatus.BLOCK);
+            this.balanceRepository.save(balance);
+        }
+    }
+
+    public Balance getBalanceByUserId(Long id){
+        return this.balanceRepository.findBalanceByUser(userRepository.findById(id).get());
     }
 
     public Balance getBalanceByUser(User user){

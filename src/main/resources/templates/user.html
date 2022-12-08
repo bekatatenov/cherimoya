@@ -8,6 +8,9 @@
 <h1 th:inline="text">You are in User page [[${#httpServletRequest.remoteUser}]]!</h1>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
+    <a th:href="@{/balance/balance}"><input type="button" value="Balance"/></a>
+
 </form>
+
 </body>
 </html>

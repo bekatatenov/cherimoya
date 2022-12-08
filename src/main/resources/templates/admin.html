@@ -5,9 +5,11 @@
     <title>Hello World!</title>
 </head>
 <body>
-<h1 th:inline="text">You are in Admin page[[${#httpServletRequest.remoteUser}]]!</h1>
+<h1 th:inline="text">You are in Admin page [[${#httpServletRequest.remoteUser}]]!</h1>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
+    <a th:href="@{/balance/balancePage}"><input type="button" value="Balance"/></a>
+
 </form>
 </body>
 </html>

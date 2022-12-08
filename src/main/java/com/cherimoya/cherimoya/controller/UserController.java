@@ -76,7 +76,7 @@ public class UserController {
         user.setDate(new Date());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRecipent(false);
-        user.setRoles(String.valueOf(RoleStatus.USER));
+        user.setRole(RoleStatus.USER);
         user.setUsersStatus(UsersStatus.ACTIVE);
         this.userService.save(user);
         return "login";
