@@ -1,9 +1,9 @@
 package com.herimoya.cherimoya.controller;
 
-import com.Project.Post2.dao.PostRepository;
-import com.Project.Post2.entity.Post;
-import com.Project.Post2.enums.Status;
-import com.Project.Post2.service.PostService;
+import com.herimoya.cherimoya.dao.PostRepository;
+import com.herimoya.cherimoya.entity.Post;
+import com.herimoya.cherimoya.enums.Status;
+import com.herimoya.cherimoya.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +41,7 @@ public class PostController {
                                 int required_amount, Model model) {
         Post post = new Post(title, description, required_amount);
         post.setCreated_date_post(new Date());
+        post.setPStatus(Status.Active);
         postRepository.save(post);
         return "redirect:/post";
     }
@@ -66,10 +67,10 @@ public class PostController {
         ArrayList<Post> res = new ArrayList<>();
         post.ifPresent(res::add);
         model.addAttribute("post", res);
-        return "post-edit";
+        return "/post/edit-save";
     }
 
-    @PostMapping(value = "post/edit-save")
+    @PostMapping(value = "/post/edit-save")
     public String advertPostEdit(@ModelAttribute Post post) {
         post.setTitle(post.getTitle());
         post.setDescription(post.getDescription());
@@ -79,23 +80,13 @@ public class PostController {
         postRepository.save(post);
         return "redirect:/post";
     }
-    @GetMapping(value = "/post/{id}/remove")
-    public String postDelete(@PathVariable(value = "id") Long id, Model model) {
-        if (!postRepository.existsById(id)) {
-            return "redirect:/post";
-        }
-        Optional<Post> post = postRepository.findById(id);
-        ArrayList<Post> res = new ArrayList<>();
-        post.ifPresent(res::add);
-        model.addAttribute("post", res);
-        return "post-remove";
-    }
-
+/*
     @PostMapping(value = "/post-remove-save")
     public String deleteById(@ModelAttribute Post post){
-        this.postService.update(post.getId());
         post.setCreated_date_post(new Date());
+        post.setPStatus(Status.Delete);
+        this.postService.delete(post);
         return "redirect:/post";
     }
-
+*/
 }

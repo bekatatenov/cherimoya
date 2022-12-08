@@ -1,16 +1,13 @@
 package com.herimoya.cherimoya.controller;
 
-import com.Project.Post2.dao.CommentRepository;
-import com.Project.Post2.entity.Comment;
-import com.Project.Post2.enums.Status;
-import com.Project.Post2.service.CommentService;
+import com.herimoya.cherimoya.dao.CommentRepository;
+import com.herimoya.cherimoya.entity.Comment;
+import com.herimoya.cherimoya.enums.Status;
+import com.herimoya.cherimoya.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +32,7 @@ public class CommentController {
 
     @GetMapping(value = "/comment/add")
     public String commentAdd(Model model) {
-        return "comment-main";
+        return "comment-add";
     }
 
     @PostMapping(value = "/comment/add-save")
@@ -44,7 +41,7 @@ public class CommentController {
         comment.setCreated_date_comment(new Date());
         comment.setCStatus(Status.Active);
         commentRepository.save(comment);
-        return "comment-main";
+        return "redirect:/comment";
     }
 
     @GetMapping(value = "/comment/{id}")
@@ -61,7 +58,7 @@ public class CommentController {
 
     @GetMapping(value = "/comment/{id}/edit")
     public String commentEdit(@PathVariable(value = "id") Long id, Model model) {
-        if (commentRepository.existsById(id)) {
+        if (!commentRepository.existsById(id)) {
             return "redirect:/comment";
         }
         Optional<Comment> comment = commentRepository.findById(id);
@@ -72,11 +69,10 @@ public class CommentController {
     }
 
     @PostMapping(value = "comment/{id}/edit")
-    public String advertCommentEdit(@PathVariable(value = "id") Long id, @RequestParam String text, Model model) {
-        Comment comment = commentRepository.findById(id).orElseThrow();
-        comment.setText(text);
-        comment.setCreated_date_comment(new Date());
+    public String advertCommentEdit(@ModelAttribute Comment comment) {
+        comment.setText(comment.getText());
         comment.setCStatus(Status.Active);
+        comment.setCreated_date_comment(new Date());
         commentRepository.save(comment);
         return "redirect:/comment";
     }

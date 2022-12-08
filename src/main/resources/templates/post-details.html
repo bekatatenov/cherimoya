@@ -13,14 +13,29 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 
-<div class="container mt-5">
-    <div th:each="el : ${post}" class="alert alert-info mt-2">
-        <h1 th:text="${el.title}"/>
-        <p th:text="${el.description}"/>
-        <p th:number="${el.required_amount}"/>
-        <p><b>Просмотры: </b><span th:text="${el.views}"/></p>
-        <a th:href="'/post/' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
-        <a th:href="'/post/' + ${el.id} + '/remove'" class="btn btn-warning">Удалить</a><br><br>
+<div class="card" style="width: 18rem;">
+    <div th:each="el : ${post}" class="card">
+        <img src="https://pbs.twimg.com/media/DbNMxLgXkAE8Ywl.png:large"
+             class="card-img-top" alt="...">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 th:text="${el.title}" class="card-title" _msthash="2054897" _msttexthash="2375191">
+                    Наименование</h3>
+                <p th:text="${el.description}" class="card-text" _msthash="1992315" _msttexthash="77759695">Описание</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li th:text="${el.required_amount}" class="list-group-item" _msthash="1991288" _msttexthash="984321">
+                    Нужная сумма
+                </li>
+            </ul>
+            <p><b>Просмотры: </b><span th:text="${el.views}"/></p>
+            <div class="card-body">
+                <a th:href="'/post' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a> <br><br>
+                <form th:action="'/post' + ${el.id} + '/remove'" method="get">
+                    <button type="submit" class="btn btn-warning">Удалить</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -3,6 +3,8 @@ package com.herimoya.cherimoya.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +22,23 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
                                         HttpServletResponse response, Authentication authentication)
             throws IOException {
         response.setStatus(HttpServletResponse.SC_OK);
-        response.sendRedirect("/");
-
+        for (GrantedAuthority gra : authentication.getAuthorities()) {
+            if (gra.equals(new SimpleGrantedAuthority("USER"))) {
+                response.sendRedirect("/home-main");
+            }
+            else if (gra.equals(new SimpleGrantedAuthority("ADMIN"))) {
+                response.sendRedirect("/home-main");
+            }
+            else if (gra.equals(new SimpleGrantedAuthority("MODER"))) {
+                response.sendRedirect("/home-main");
+            }
+            else if(gra.equals(new SimpleGrantedAuthority("RECIPIENT"))){
+                response.sendRedirect("/home-main");
+            }
+            else {
+                response.sendRedirect("/");
+            }
+        }
     }
 }
+

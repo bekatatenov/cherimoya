@@ -1,8 +1,8 @@
 package com.herimoya.cherimoya.service;
 
-import com.Project.Post2.dao.TokenRepository;
-import com.Project.Post2.entity.Token;
-import com.Project.Post2.entity.User;
+import com.herimoya.cherimoya.dao.TokenRepository;
+import com.herimoya.cherimoya.entity.Token;
+import com.herimoya.cherimoya.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,6 @@ import java.util.Random;
 public class TokenService {
     @Autowired
     private TokenRepository tokenRepository;
-
     public Integer makeToken() {
         return new Random().nextInt(900000) + 100000;
     }
@@ -37,8 +36,8 @@ public class TokenService {
         tokenRepository.delete(token);
     }
 
-    public Token findByUserAndToken(User users, Integer token) {
-        return (Token) tokenRepository.findByTokenAndUser(token, users)
-                .orElseThrow(() -> new NoSuchElementException(String.format("Не найден токен %s для пользователя", token, users.getEmail())));
+    public Token findByUserAndToken(User user, Integer token) {
+        return (Token) tokenRepository.findByTokenAndUser(token, user)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Не найден токен %s для пользователя", token, user.getEmail())));
     }
 }

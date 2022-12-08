@@ -7,8 +7,8 @@ public enum RoleStatus implements GrantedAuthority {
     RECIPIENT,
     GUEST,
     MODER,
-    ADMIN,
-    ;
+    ADMIN;
+
     @Override
     public String getAuthority() {
         return name();

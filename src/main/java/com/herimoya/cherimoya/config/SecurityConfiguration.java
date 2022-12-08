@@ -1,7 +1,8 @@
 package com.herimoya.cherimoya.config;
 
-import com.Project.Post2.enums.RoleStatus;
-import com.Project.Post2.service.UserService;
+
+import com.herimoya.cherimoya.enums.RoleStatus;
+import com.herimoya.cherimoya.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,47 +20,56 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private DataSource dataSource;
-    
-    @Autowired
-    private UserService userService;
+class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.queries.users-query}")
     private String usersQuery;
-
     @Value("${spring.queries.roles-query}")
     private String rolesQuery;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private DataSource dataSource;
 
     @Bean
-    public PasswordEncoder passwordEncoder()
-    {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
     @Autowired
     CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder builder)
+    protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        builder.userDetailsService(userService);
+        auth.
+                jdbcAuthentication()
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder());
     }
 
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
-
         http.
                 authorizeRequests()
-                .antMatchers("/","/admin").hasAnyAuthority(RoleStatus.ADMIN.name())
-                .antMatchers("/","/moder").hasAnyAuthority(RoleStatus.MODER.name())
-                .antMatchers("/","user").hasAnyAuthority(RoleStatus.USER.name())
-                .antMatchers("/","/organization", "/news","/post", "/post/**","/post/add",
-                        "/post/edit-save","/post/edit", "/post-remove-save", "/post/remove", "/comment",
-                        "/comment/**", "/comment/add", "/comment/edit", "/login", "/registration", "/profile", "/settings", "/forgot-password").permitAll()
+                .antMatchers("/admin", "/delete-users", "/delete-users-by-email",
+                        "/active-users", "/active-users-by-email", "/ban-users", "/ban-users-by-email", "/change-to-moder",
+                        "/change-to-moder-by-email", "/change-to-user", "/change-to-user-by-email", "/change-to-recipient",
+                        "/change-to-recipient-by-email").hasAnyAuthority(RoleStatus.ADMIN.name())
+                .antMatchers("/", "/moder", "hello", "/delete-users", "/delete-users-by-email",
+                        "/active-users", "/active-users-by-email", "/ban-users", "/ban-users-by-email", "/change-to-user",
+                        "/change-to-user-by-email").hasAnyAuthority(RoleStatus.MODER.name())
+                .antMatchers("/", "/registration", "/organization", "/news", "/post", "/post/**",
+                        "/post/add", "/post/edit-save", "/post/edit", "/post-remove-save", "/post/remove", "/comment",
+                        "/comment/**", "/comment/add", "/comment/add-save", "/comment/edit", "/login",  "/profile", "/settings",
+                        "/forgot-password", "/userPage").hasAnyAuthority(RoleStatus.USER.name())
+                .antMatchers("/", "/login", "/registration", "/organization", "/news", "/post", "/post/**",
+                        "/post/add", "/post/edit-save", "/post/edit", "/post-remove-save", "/post/remove", "/comment",
+                        "/comment/**", "/comment/add", "/comment/edit", "/login",  "/profile", "/settings",
+                        "/forgot-password").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()
@@ -73,13 +83,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/access-denied");
     }
 
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**","/templates/**" ,"/static/**", "/registration");
+                .antMatchers("/resources/**", "/templates/**", "/static/**", "/registration");
     }
-
 
 
 }

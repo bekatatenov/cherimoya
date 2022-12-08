@@ -1,8 +1,8 @@
 package com.herimoya.cherimoya.entity;
 
-import com.Project.Post2.enums.DocumentStatus;
-import com.Project.Post2.enums.RoleStatus;
-import com.Project.Post2.enums.UsersStatus;
+import com.herimoya.cherimoya.enums.DocumentStatus;
+import com.herimoya.cherimoya.enums.RoleStatus;
+import com.herimoya.cherimoya.enums.UsersStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -51,13 +51,15 @@ public class User {
     private DocumentStatus documentStatus;
 
     @Column(name = "ROLES")
-    @Enumerated(EnumType.STRING)
-    private RoleStatus roles;
+    private String roles;
 
 
     @Column(name = "USERS_STATUS")
     @Enumerated(EnumType.STRING)
     private UsersStatus usersStatus;
+
+    @Column
+    private boolean active;
 
 
     @OneToOne(cascade = CascadeType.REMOVE)

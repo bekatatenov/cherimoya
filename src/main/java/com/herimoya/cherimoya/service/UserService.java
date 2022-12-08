@@ -1,47 +1,119 @@
 package com.herimoya.cherimoya.service;
 
-import com.Project.Post2.dao.UserRepository;
-import com.Project.Post2.entity.User;
+import com.herimoya.cherimoya.dao.UserRepository;
+import com.herimoya.cherimoya.enums.RoleStatus;
+import com.herimoya.cherimoya.enums.UsersStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
-public class UserService implements UserDetailsService {
+ public class UserService implements UserDetailsService {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     @Autowired
     private UserRepository userRepository;
-    public void save(User user){
+
+    public void save(com.herimoya.cherimoya.entity.User user) {
+        user.setDate(new Date());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRecipent(false);
+        user.setRoles(String.valueOf(RoleStatus.USER));
+        user.setUsersStatus(UsersStatus.ACTIVE);
+        user.setActive(Boolean.TRUE);
         this.userRepository.save(user);
     }
 
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public void delete(String email) {
+        com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
+        if (user != null) {
+            user.setUsersStatus(UsersStatus.DELETED);
+            this.userRepository.save(user);
+        }
     }
 
-    public User findByName(String name) {
-        return userRepository.findByName(name);
+    public void ban(String email) {
+        com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
+        if (user != null) {
+            user.setUsersStatus(UsersStatus.BANNED);
+            this.userRepository.save(user);
+        }
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("Не найден пользователь по email: " + email));
+    public void active(String email) {
+        com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
+        if (user != null) {
+            user.setUsersStatus(UsersStatus.ACTIVE);
+            this.userRepository.save(user);
+        }
+    }
+
+    public void admin(String email) {
+        com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
+        if (user != null) {
+            user.setRoles(String.valueOf(RoleStatus.ADMIN));
+            this.userRepository.save(user);
+        }
+    }
+
+    public void moder(String email) {
+        com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
+        if (user != null) {
+            user.setRoles(String.valueOf(RoleStatus.MODER));
+            this.userRepository.save(user);
+        }
+    }
+
+    public void user(String email) {
+        com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
+        if (user != null) {
+            user.setRoles(String.valueOf(RoleStatus.USER));
+            this.userRepository.save(user);
+        }
+    }
+
+    public void recipient(String email) {
+        com.herimoya.cherimoya.entity.User user = this.userRepository.findByEmail(email);
+        if (user != null) {
+            user.setRoles(String.valueOf(RoleStatus.RECIPIENT));
+            this.userRepository.save(user);
+        }
     }
 
 
+    public com.herimoya.cherimoya.entity.User GetAllUserName(String name) {
+        return (com.herimoya.cherimoya.entity.User) userRepository.findAllUserName(name);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        return new org.springframework.security.core.userdetails.User(user.getName(),user.getPassword(),grantedAuthorities);
+        Optional<com.herimoya.cherimoya.entity.User> optionalUser = Optional.ofNullable(userRepository.findFirstByEmail(username));
+        if (!optionalUser.isPresent()) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        com.herimoya.cherimoya.entity.User user = optionalUser.get();
+        List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRoles());
+        grantedAuthorities.add(simpleGrantedAuthority);
+        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), grantedAuthorities);
     }
 
-    public void update(User user) {
+    public com.herimoya.cherimoya.entity.User FindByLogin(String email) {
+       return this.userRepository.findByEmail(email);
+    }
+
+    public void update(com.herimoya.cherimoya.entity.User user) {
+        this.userRepository.save(user);
     }
 }
+
+
 

@@ -1,7 +1,7 @@
 package com.herimoya.cherimoya.service;
 
-import com.Project.Post2.dao.CommentRepository;
-import com.Project.Post2.entity.Comment;
+import com.herimoya.cherimoya.dao.CommentRepository;
+import com.herimoya.cherimoya.entity.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -11,27 +11,49 @@
 
 </head>
 
-<div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
-    <div class="bg-light border rounded-3">
-        <br><br><br><br><br><br><br><br><br><br>
-    </div>
-    <div class="bg-light border rounded-3">
-        <br><br><br><br><br><br><br><br><br><br>
-    </div>
-</div>
-
 <body class="text-center">
 
-<form th:action="@{/registration}" enctype="multipart/form-data" method="post" th:object="${user}">
-    <div><label> NickName : <input th:value="${name}" type="text" name="name"/> </label></div>
-    <div><label> PhoneNumber : <input th:value="${phoneNumber}" type="text" name="phoneNumber"/> </label></div>
-    <div><label> Email : <input th:value="${email}" type="text" name="email"/> </label></div>
-    <div><label> Password: <input th:value="${password}" type="password" name="password"/> </label></div>
-    <div><label> Requisite: <input th:value="${requisite}" type="requisite" name="requisite"/> </label></div>
-    <div><label> Profile Photo <input th:value="${profilePhoto}" type="profilePhoto" name="profilePhoto"/> </label></div>
+<br><br><br><br><br><br><br><br><br><br>
 
-    <div><input type="submit" value="Sign UP"/></div>
-</form>
+<main class="form-sign up w-50 m-auto">
+    <form th:action="@{/registration}" enctype="multipart/form-data" method="post" th:object="${user}">
 
+        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+
+        <div class="form-floating">
+            <input th:value="${email}" type="text" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label> Email : </label>
+        </div>
+        <div class="form-floating">
+            <input th:value="${password}" type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label> Password : </label>
+        </div>
+        <div class="form-floating">
+            <input th:value="${name}" type="text" name="name" class="form-control" id="floatingNickName" placeholder="NickName">
+            <label> NickName : </label>
+        </div>
+        <div class="form-floating">
+            <input th:value="${phoneNumber}" type="text" name="phoneNumber" class="form-control" id="floatingPhoneNumber" placeholder="PhoneNumber">
+            <label> PhoneNumber : </label>
+        </div>
+        <div class="form-floating">
+            <input th:value="${requisite}" type="requisite" name="requisite" class="form-control" id="floatingRequisite" placeholder="Requisite">
+            <label> Requisite: </label>
+        </div>
+        <div class="form-floating">
+            <input th:value="${profilePhoto}" type="profilePhoto" name="profilePhoto" class="form-control" id="floatingProfilePhoto" placeholder="ProfilePhoto">
+            <label> Profile Photo </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+        <div class="hr"></div>
+        <div class="foot-lnk">
+            </label></div>
+        </div>
+        <p class="mt-5 mb-3 text-muted">CHERIMOYA project ©2022</p>
+    </form>
+</main>
+
+
+<div id="torrent-scanner-popup" style="display: none;"></div>
 </body>
 </html>

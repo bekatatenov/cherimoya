@@ -1,6 +1,6 @@
 package com.herimoya.cherimoya.dao;
 
-import com.Project.Post2.entity.Comment;
+import com.herimoya.cherimoya.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

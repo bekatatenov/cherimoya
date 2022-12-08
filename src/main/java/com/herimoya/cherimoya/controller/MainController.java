@@ -1,17 +1,11 @@
 package com.herimoya.cherimoya.controller;
 
-import com.Project.Post2.entity.Post;
-import com.Project.Post2.entity.User;
-import com.Project.Post2.service.PostService;
-import com.Project.Post2.service.UserService;
+import com.herimoya.cherimoya.service.PostService;
+import com.herimoya.cherimoya.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 @Controller
 public class MainController {
@@ -25,16 +19,21 @@ public class MainController {
 
     @GetMapping(value = "/")
     public String home(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails) principal).getUsername();
-        User byEmail = userService.findByEmail(username);
-        List<Post> posts = postService.findAllActive();
-        model.addAttribute("title", "Главная страница");
-        model.addAttribute("posts", posts);
-        model.addAttribute("user", byEmail);
         return "home";
     }
 
+    @GetMapping("/userPage")
+    public String userPage() {
+        return "userProfile";
+    }
+    @GetMapping("/moderPage")
+    public String moderPage() {
+        return "moder";
+    }
+    @GetMapping("/adminPage")
+    public String adminPage() {
+        return "admin";
+    }
 
     @GetMapping(value = "/organization")
     public String organization(Model model) {

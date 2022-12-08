@@ -1,11 +1,11 @@
 package com.herimoya.cherimoya.controller;
 
 
-import com.Project.Post2.dao.UserRepository;
-import com.Project.Post2.entity.User;
-import com.Project.Post2.enums.RoleStatus;
-import com.Project.Post2.enums.UsersStatus;
-import com.Project.Post2.service.UserService;
+import com.herimoya.cherimoya.dao.UserRepository;
+import com.herimoya.cherimoya.entity.User;
+import com.herimoya.cherimoya.enums.RoleStatus;
+import com.herimoya.cherimoya.enums.UsersStatus;
+import com.herimoya.cherimoya.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -29,21 +29,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-
-    @GetMapping(name ="/profile")
-    public String ProfilePage(Model model, Principal principal) {
-        if (principal == null) {
-            throw new RuntimeException("Ты не авторизовался");
-        }
-        User user = userService.findByName(principal.getName());
-
-        User user1 = User.builder()
-                .name(user.getName())
-                .email(user.getEmail())
-                .build();
-        model.addAttribute("users", user1);
-        return "profile";
-    }
 
     @GetMapping(value = "/settings")
     public String userEdit(@PathVariable(value = "id") Long id, Model model) {
@@ -76,14 +61,14 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginPage(@RequestParam(value = "error",required = false)String error,
                                   @RequestParam(value = "logout",required = false)String logout){
-        ModelAndView model= new ModelAndView();
+        ModelAndView model= new ModelAndView("home-main");
         if (error != null) {
             model.addObject("error", "Почта или пароль неверны");
-            model.setViewName("login");
+            model.setViewName("home");
         }
         if (logout != null) {
             model.addObject("logout", "Logged out successfully.");
-            model.setViewName("login");
+            model.setViewName("home");
         }
         return model;
     }
@@ -98,11 +83,87 @@ public class UserController {
         user.setDate(new Date());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRecipent(false);
-        user.setRoles(RoleStatus.USER);
+        user.setRoles(String.valueOf(RoleStatus.USER));
         user.setUsersStatus(UsersStatus.ACTIVE);
         this.userService.save(user);
-        return "loginNew";
+        return "home";
     }
 
+    @GetMapping("/delete-users")
+    public String delete() {
+        return "delete";
+    }
+
+    @PostMapping(value = "/delete-users-by-email")
+    public String deleteByEmail(@ModelAttribute User user) {
+        this.userService.delete(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/ban-users")
+    public String ban() {
+        return "ban";
+    }
+
+    @PostMapping(value = "/ban-users-by-email")
+    public String banByEmail(@ModelAttribute User user) {
+        this.userService.ban(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/active-users")
+    public String active() {
+        return "active";
+    }
+
+    @PostMapping(value = "/active-users-by-email")
+    public String activeByEmail(@ModelAttribute User user) {
+        this.userService.active(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/change-to-moder")
+    public String moder() {
+        return "getModer";
+    }
+
+    @PostMapping(value = "/change-to-moder-by-email")
+    public String changeToModer(@ModelAttribute User user) {
+        this.userService.moder(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/change-to-user")
+    public String user() {
+        return "getUser";
+    }
+
+    @PostMapping(value = "/change-to-user-by-email")
+    public String changeToUser(@ModelAttribute User user) {
+        this.userService.user(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/change-to-recipient")
+    public String recipient() {
+        return "getRecipient";
+    }
+
+    @PostMapping(value = "/change-to-recipient-by-email")
+    public String changeToRecipient(@ModelAttribute User user) {
+        this.userService.recipient(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/change-to-admin")
+    public String admin() {
+        return "getAdmin";
+    }
+
+    @PostMapping(value = "/change-to-admin-by-email")
+    public String changeToAdmin(@ModelAttribute User user) {
+        this.userService.admin(user.getEmail());
+        return "login";
+    }
 
 }

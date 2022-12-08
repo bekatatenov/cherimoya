@@ -17,7 +17,7 @@
     <div th:each="el : ${comment}" class="alert alert-info mt-2">
         <h1 th:text="${el.text}"/>
         <a th:href="'/comment' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
-        <form th:action="'blond' + ${el.id} + '/remove'" method="post">
+        <form th:action="'comment' + ${el.id} + '/remove'" method="post">
             <button type="submit" class="btn btn-warning">Удалить</button>
         </form>
     </div>

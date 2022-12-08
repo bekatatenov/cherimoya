@@ -13,7 +13,8 @@
                     <li><a href="/organization" class="nav-link px-2 text-white">Organization</a></li>
                     <li><a href="/post" class="nav-link px-2 text-white">Post</a></li>
                     <li><a href="/news" class="nav-link px-2 text-white">NEWS</a></li>
-                </ul><br><br><br>
+                </ul>
+                <br><br><br>
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                     <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
@@ -22,8 +23,56 @@
 
                 <div class="text-end">
 
-                    <a href="/login" class="btn btn-outline-light me-2" role="button" aria-pressed="true">login</a>
-                    <a href="/registration" class="btn btn-outline-light me-2" role="button" aria-pressed="true">Sign-up</a>
+                    <main class="form-signin w-50 m-auto">
+                        <br>
+
+                        <div class="dropdown">
+                            <button href="/login" type="button" class="btn btn-outline-light me-2 dropdown-toggle"
+                                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
+                                    _msthash="1942447" _msttexthash="4293770">Login
+                            </button>
+                            <form th:action="@{/login}" method="post" class="dropdown-menu p-4" style=""
+                                  _mstvisible="0">
+                                <div class="mb-3" _mstvisible="1">
+                                    <label for="exampleDropdownFormEmail2" class="form-label" _msthash="2810886"
+                                           _msttexthash="5042284" _mstvisible="2">Адрес электронной почты</label>
+                                    <input th:value="${email}" name="email" type="email" class="form-control"
+                                           id="exampleDropdownFormEmail2" placeholder="email@example.com"
+                                           _mstplaceholder="329745" _mstvisible="2">
+                                </div>
+                                <div class="mb-3" _mstvisible="1">
+                                    <label for="exampleDropdownFormPassword2" class="form-label" _msthash="2811133"
+                                           _msttexthash="802438" _mstvisible="2">Пароль</label>
+                                    <input th:value="${password}" type="password" name="password" class="form-control"
+                                           id="exampleDropdownFormPassword2" placeholder="Пароль"
+                                           _mstplaceholder="802438" _mstvisible="2">
+                                </div>
+                                <div class="mb-3" _mstvisible="1">
+                                    <div class="form-check" _mstvisible="2">
+                                        <input type="checkbox" class="form-check-input" id="dropdownCheck2"
+                                               _mstvisible="3">
+                                        <label class="form-check-label" for="dropdownCheck2" _msthash="3308591"
+                                               _msttexthash="2384616" _mstvisible="3"> Запомнить меня </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" _msthash="2436928" _msttexthash="630383"
+                                        _mstvisible="1">Войти
+                                </button>
+
+                                <div th:if="${param.error} != null">
+                                    Неверное имя пользователя или пароль.
+                                </div>
+                                <div th:if="${param.logout} != null">
+                                    Вы вышли из системы.
+                                </div>
+
+                            </form>
+                        </div>
+                    </main>
+
+                    <br>
+                    <a href="/registration" class="btn btn-outline-light me-2" role="button"
+                       aria-pressed="true">Sign-up</a>
                 </div>
             </div>
         </div>

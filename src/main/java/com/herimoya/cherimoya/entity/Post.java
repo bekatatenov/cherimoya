@@ -1,6 +1,6 @@
 package com.herimoya.cherimoya.entity;
 
-import com.Project.Post2.enums.Status;
+import com.herimoya.cherimoya.enums.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

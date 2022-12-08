@@ -1,7 +1,8 @@
 package com.herimoya.cherimoya.dao;
 
-import com.Project.Post2.entity.Token;
-import com.Project.Post2.entity.User;
+
+import com.herimoya.cherimoya.entity.Token;
+import com.herimoya.cherimoya.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
