@@ -12,13 +12,18 @@
   You have been logged out.
 </div>
 <form th:action="@{/login}" method="post">
-  <div><label> User Name : <input type="text" name="email"/> </label></div>
-  <div><label> Password: <input type="password" name="password"/> </label></div>
+  <div><label> User Name : <input type="text" required name="email"/> </label></div>
+  <div><label> Password: <input type="password" required name="password"/> </label></div>
   <div>
     <input type="submit" value="Sign In"/>
     <a th:href="@{/registration}"><input type="button" value="Sign UP"/></a>
     <a th:href="@{/delete-users}"><input type="button" value="Delete users"/></a>
-
+    <a th:href="@{/active-users}"><input type="button" value="Active users"/></a>
+    <a th:href="@{/ban-users}"><input type="button" value="ban users"/></a>
+    <a th:href="@{/change-to-admin}"><input type="button" value="Change-to-admin"/></a>
+    <a th:href="@{/change-to-moder}"><input type="button" value="Change-to-moder"/></a>
+    <a th:href="@{/change-to-user}"><input type="button" value="Change-to-user"/></a>
+    <a th:href="@{/change-to-recipient}"><input type="button" value="Change-to-recipient"/></a>
   </div>
 </form>
 </body>
