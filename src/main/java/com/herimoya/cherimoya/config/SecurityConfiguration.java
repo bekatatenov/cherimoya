@@ -59,17 +59,14 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/active-users", "/active-users-by-email", "/ban-users", "/ban-users-by-email", "/change-to-moder",
                         "/change-to-moder-by-email", "/change-to-user", "/change-to-user-by-email", "/change-to-recipient",
                         "/change-to-recipient-by-email").hasAnyAuthority(RoleStatus.ADMIN.name())
-                .antMatchers("/", "/moder", "hello", "/delete-users", "/delete-users-by-email",
+                .antMatchers( "/moder", "/delete-users", "/delete-users-by-email",
                         "/active-users", "/active-users-by-email", "/ban-users", "/ban-users-by-email", "/change-to-user",
                         "/change-to-user-by-email").hasAnyAuthority(RoleStatus.MODER.name())
-                .antMatchers("/", "/registration", "/organization", "/news", "/post", "/post/**",
-                        "/post/add", "/post/edit-save", "/post/edit", "/post-remove-save", "/post/remove", "/comment",
-                        "/comment/**", "/comment/add", "/comment/add-save", "/comment/edit", "/login",  "/profile", "/settings",
-                        "/forgot-password", "/userPage").hasAnyAuthority(RoleStatus.USER.name())
-                .antMatchers("/", "/login", "/registration", "/organization", "/news", "/post", "/post/**",
-                        "/post/add", "/post/edit-save", "/post/edit", "/post-remove-save", "/post/remove", "/comment",
-                        "/comment/**", "/comment/add", "/comment/edit", "/login",  "/profile", "/settings",
-                        "/forgot-password").permitAll()
+                .antMatchers( "/post/add", "/post/edit-save", "/post/edit", "/post-remove-save", "/post/remove",
+                        "/comment/add", "/comment/add-save", "/comment/edit", "/login",  "/profile", "/settings",
+                        "/forgot-password", "/userPage").hasAnyAuthority(RoleStatus.USER.name(), RoleStatus.RECIPIENT.name())
+                .antMatchers("/", "/home", "/home-main", "/login", "/registration", "/organization", "/news", "/post", "/post/**", "/comment",
+                        "/comment/**", "/forgot-password").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()

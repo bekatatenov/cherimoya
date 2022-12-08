@@ -141,9 +141,8 @@
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <tr th:each="Post:${allActivePlace}">
                     <div class="col" style="height: 600px">
-                        <div class="card shadow-sm"><img th:src="${post.getImg()}" height="225" width="100%">
+                        <div class="card shadow-sm"><img th:src="${post.getProfilePhoto}" height="225" width="100%">
                             <div class="card-body"><h5 class="card-title" th:text="${post.getTitle()}"></h5>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item" th:text="${post.getDescription}"></li>
@@ -152,7 +151,7 @@
                                 <div class="d-grid gap-2">
                                     <form th:action="@{/post/add/save}" method="get"><input th:value="${post.getId()}"
                                                                                          type="number" hidden="hidden"
-                                                                                         name="placeId"/>
+                                                                                         name="postId"/>
                                         <td><input type="submit" class="btn btn-outline-success" value="Подробнее"/>
                                         </td>
                                     </form>
@@ -160,7 +159,6 @@
                             </div>
                         </div>
                     </div>
-                </tr>
             </div>
         </div>
     </div>

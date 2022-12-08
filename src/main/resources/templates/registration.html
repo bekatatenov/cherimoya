@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.ymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${title}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -9,51 +9,96 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
 
+    <style>
+        .card-registration .select-input.form-control[readonly]:not([disabled]) {
+            font-size: 1rem;
+            line-height: 2.15;
+            padding-left: .75em;
+            padding-right: .75em;
+        }
+
+        .card-registration .select-arrow {
+            top: 13px;
+        }
+    </style>
 </head>
-
-<body class="text-center">
-
-<br><br><br><br><br><br><br><br><br><br>
-
-<main class="form-sign up w-50 m-auto">
+<body>
+<section class="h-100 bg-dark">
     <form th:action="@{/registration}" enctype="multipart/form-data" method="post" th:object="${user}">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card card-registration my-4">
+                        <div class="row g-0">
+                            <div class="col-xl-6 d-none d-xl-block">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
+                                     alt="Sample photo" class="img-fluid"
+                                     style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;"/>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card-body p-md-5 text-black">
+                                    <h3 class="mb-5 text-uppercase">Registration</h3>
 
-        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input th:value="${email}" type="email" name="email" id="form3Example1n"
+                                                   class="form-control form-control-lg"/>
+                                            <label class="form-label">Email address</label>
+                                        </div>
+                                    </div>
 
-        <div class="form-floating">
-            <input th:value="${email}" type="text" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label> Email : </label>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <div class="form-outline">
+                                                <input th:value="${password}" type="password" name="password"
+                                                       class="form-control form-control-lg"/>
+                                                <label class="form-label">Password</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    <input th:value="${name}" type="text" name="name"
+                                                           id="form3Example1m"
+                                                           class="form-control form-control-lg"/>
+                                                    <label class="form-label">Nickname</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    <input th:value="${phoneNumber}" type="text" name="phoneNumber"
+                                                           class="form-control form-control-lg"/>
+                                                    <label class="form-label">Phone Number</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input th:value="${requisite}" type="text" name="requisite"
+                                                   class="form-control form-control-lg"/>
+                                            <label class="form-label">Requisite</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input th:value="${profilePhoto}" type="url" name="profilePhoto"
+                                                   class="form-control form-control-lg"/>
+                                            <label class="form-label">Profile Photo</label>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end pt-3">
+                                            <button type="button" class="btn btn-warning btn-lg ms-2">Submit form</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-floating">
-            <input th:value="${password}" type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label> Password : </label>
-        </div>
-        <div class="form-floating">
-            <input th:value="${name}" type="text" name="name" class="form-control" id="floatingNickName" placeholder="NickName">
-            <label> NickName : </label>
-        </div>
-        <div class="form-floating">
-            <input th:value="${phoneNumber}" type="text" name="phoneNumber" class="form-control" id="floatingPhoneNumber" placeholder="PhoneNumber">
-            <label> PhoneNumber : </label>
-        </div>
-        <div class="form-floating">
-            <input th:value="${requisite}" type="requisite" name="requisite" class="form-control" id="floatingRequisite" placeholder="Requisite">
-            <label> Requisite: </label>
-        </div>
-        <div class="form-floating">
-            <input th:value="${profilePhoto}" type="profilePhoto" name="profilePhoto" class="form-control" id="floatingProfilePhoto" placeholder="ProfilePhoto">
-            <label> Profile Photo </label>
-        </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-        <div class="hr"></div>
-        <div class="foot-lnk">
-            </label></div>
-        </div>
-        <p class="mt-5 mb-3 text-muted">CHERIMOYA project ©2022</p>
     </form>
-</main>
-
-
-<div id="torrent-scanner-popup" style="display: none;"></div>
+</section>
 </body>
 </html>

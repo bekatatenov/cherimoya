@@ -69,7 +69,7 @@ public class UserController {
         if (logout != null) {
             model.addObject("logout", "Logged out successfully.");
             model.setViewName("home");
-        }
+        }else model.setViewName("/home-main");
         return model;
     }
 
