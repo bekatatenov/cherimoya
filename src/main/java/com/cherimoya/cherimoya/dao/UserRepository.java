@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User,Long> {
     User findByEmail(String email);
     User findFirstByEmail(String email);
-    User findByName(String name);
     @Modifying
     @Query("UPDATE USERS u set u.usersStatus = :status where u.email = :email")
     void update(@Param("email")String email,@Param("status") String status);

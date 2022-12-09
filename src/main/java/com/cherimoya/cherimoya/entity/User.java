@@ -1,8 +1,6 @@
 package com.cherimoya.cherimoya.entity;
 
-//import com.cherimoya.cherimoya.enums.BalanceStatus;
 import com.cherimoya.cherimoya.enums.DocumentStatus;
-import com.cherimoya.cherimoya.enums.RoleStatus;
 import com.cherimoya.cherimoya.enums.UsersStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -51,14 +49,13 @@ public class User {
     private DocumentStatus documentStatus;
 
     @Column(name = "ROLES")
-    @Enumerated(EnumType.STRING)
-    private RoleStatus role;
+    private String roles;
 
     @Column(name = "USERS_STATUS")
     @Enumerated(EnumType.STRING)
     private UsersStatus usersStatus;
 
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private Balance balance;
+    @Column
+    private Boolean active;
+
 }

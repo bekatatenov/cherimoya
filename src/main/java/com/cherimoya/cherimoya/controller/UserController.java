@@ -1,20 +1,14 @@
 package com.cherimoya.cherimoya.controller;
 
 import com.cherimoya.cherimoya.entity.User;
-import com.cherimoya.cherimoya.enums.RoleStatus;
-import com.cherimoya.cherimoya.enums.UsersStatus;
 import com.cherimoya.cherimoya.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
-
 @Controller
 public class UserController {
-    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     private UserService userService;
@@ -27,7 +21,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginPage(@RequestParam(value = "error",required = false)String error,
-            @RequestParam(value = "logout",required = false)String logout){
+            @RequestParam(value = "logout",required = false)String logout) {
         ModelAndView model= new ModelAndView();
         if (error != null) {
             model.addObject("error", "Почта или пароль неверны");
@@ -73,14 +67,10 @@ public class UserController {
 
     @PostMapping(value = "/registration")
     public String registration(@ModelAttribute User user){
-        user.setDate(new Date());
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRecipent(false);
-        user.setRole(RoleStatus.USER);
-        user.setUsersStatus(UsersStatus.ACTIVE);
         this.userService.save(user);
-        return "login";
+        return "user";
     }
+
 
     @GetMapping("/delete-users")
     public String delete(){
@@ -90,7 +80,74 @@ public class UserController {
 
     @PostMapping(value = "/delete-users-by-email")
     public String deleteByEmail(@ModelAttribute User user){
-        this.userService.update(user.getEmail());
+        this.userService.delete(user.getEmail());
         return "login";
     }
+
+    @GetMapping("/ban-users")
+    public String ban(){
+        return "ban";
+    }
+
+    @PostMapping(value = "/ban-users-by-email")
+    public String banByEmail(@ModelAttribute User user){
+        this.userService.ban(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/active-users")
+    public String active(){
+        return "active";
+    }
+
+    @PostMapping(value = "/active-users-by-email")
+    public String activeByEmail(@ModelAttribute User user){
+        this.userService.active(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/change-to-admin")
+    public String admin(){
+        return "getAdmin";
+    }
+
+    @PostMapping(value = "/change-to-admin-by-email")
+    public String changeToAdmin(@ModelAttribute User user){
+        this.userService.admin(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/change-to-moder")
+    public String moder(){
+        return "getModer";
+    }
+
+    @PostMapping(value = "/change-to-moder-by-email")
+    public String changeToModer(@ModelAttribute User user){
+        this.userService.moder(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/change-to-user")
+    public String user(){
+        return "getUser";
+    }
+
+    @PostMapping(value = "/change-to-user-by-email")
+    public String changeToUser(@ModelAttribute User user){
+        this.userService.user(user.getEmail());
+        return "login";
+    }
+
+    @GetMapping("/change-to-recipient")
+    public String recipient(){
+        return "getRecipient";
+    }
+
+    @PostMapping(value = "/change-to-recipient-by-email")
+    public String changeToRecipient(@ModelAttribute User user){
+        this.userService.recipient(user.getEmail());
+        return "login";
+    }
+
 }

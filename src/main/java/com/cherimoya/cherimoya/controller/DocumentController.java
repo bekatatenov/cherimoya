@@ -1,7 +1,7 @@
 //package com.cherimoya.cherimoya.controller;
 //
-//import com.cherimoya.cherimoya.entity.Document;
-//import com.cherimoya.cherimoya.entity.Image;
+//import com.herimoya.cherimoya.entity.Document;
+//import com.herimoya.cherimoya.entity.Image;
 //import com.cherimoya.cherimoya.entity.User;
 //import com.cherimoya.cherimoya.enums.DocumentStatus;
 //import com.cherimoya.cherimoya.service.DocumentService;

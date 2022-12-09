@@ -1,6 +1,7 @@
 package com.cherimoya.cherimoya.controller;
 
 import com.cherimoya.cherimoya.dao.BalanceRepository;
+import com.cherimoya.cherimoya.dao.UserRepository;
 import com.cherimoya.cherimoya.entity.Balance;
 import com.cherimoya.cherimoya.entity.User;
 import com.cherimoya.cherimoya.enums.BalanceStatus;
@@ -8,18 +9,28 @@ import com.cherimoya.cherimoya.enums.UsersStatus;
 import com.cherimoya.cherimoya.service.BalanceService;
 import com.cherimoya.cherimoya.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.midi.Sequence;
 import java.math.BigDecimal;
+import java.security.Security;
 
 @Controller
 @RequestMapping("/balance")
 public class BalanceController {
     @Autowired
     private BalanceService balanceService;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Autowired
     private UserService userService;
+    @Autowired
+    private BalanceRepository balanceRepository;
 
     @GetMapping(value = "/balancePage")
     private String balancePage(){
@@ -41,16 +52,25 @@ public class BalanceController {
         return "donate";
     }
 
+    @GetMapping(value = "/getBalance")
+    public String getBalance() {
+        return "Balance";
+    }
+
     @PostMapping(value = "/reg-user-balance")
-    public String newRequisites(@ModelAttribute User user) {
+    public String newRequisites() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(email);
+        User user = userService.getEmail(email);
         Balance balance = new Balance();
         if (user.getUsersStatus() == UsersStatus.BANNED) {
-            return "you are blocked";
+            return "/";
         }
         balance.setStatus(BalanceStatus.ACTIVE);
         balance.setRequisites(user.getRequisite());
         balance.setUser(user);
-        return "success";
+        balanceRepository.save(balance);
+        return "redirect:/Balance";
     }
 
     @PostMapping(value = "/reg-userId-repuisites")

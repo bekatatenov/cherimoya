@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 hello
-<td><h3 th:text="${user.getName}"></h3></td>
+<h3 th:inline="text"> hello [[${#httpServletRequest.remoteUser}]]</h3>
+<form th:action="@{/balance/reg-user-balance}" method="post">
+    <input type="button" value="Create Balance"/>
+</form>
+<a type="button" th:href="@{}" th:method="post">new balance</a>
+<a th:href="@{/balance/reg-user-balance}"><input type="button" value="Change-to-admin"/></a>
+<form th:action="@{/balance/reg-user-balance}" method="post">  <input type="submit" value="All users"/></form>
 </body>
 </html>
