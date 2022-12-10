@@ -20,6 +20,10 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JoinColumn(name = "user")
+    @ManyToOne
+    private User user;
+
     @Column(name = "payment_date")
     private Date date;
 
