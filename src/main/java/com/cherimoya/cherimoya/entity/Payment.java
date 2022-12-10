@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -23,21 +24,21 @@ public class Payment {
     private Date date;
 
     @Column(name = "amount")
-    private int amount;
+    private BigDecimal amount;
 
     @Column(name = "status")
     private PaymentStatus status;
 
-    @JoinColumn(name = "FromUser")
-    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FromBalance")
+    @OneToOne(fetch = FetchType.EAGER)
     private Balance fromBalance;
 
     @JoinColumn(name = "ToBalance")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Balance toBalance;
 
     @JoinColumn(name = "post")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Post post;
 
 }

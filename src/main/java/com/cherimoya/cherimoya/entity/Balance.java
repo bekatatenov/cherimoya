@@ -19,16 +19,11 @@ public class Balance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(name = "requisites")
     private String requisites;
 
-    @Column(name = "cash")
-    private BigDecimal count;
+    @Column(name = "balance")
+    private BigDecimal amount;
 
     @Column(name="status")
     @Enumerated(EnumType.STRING)

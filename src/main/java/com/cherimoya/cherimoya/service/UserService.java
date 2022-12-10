@@ -1,11 +1,14 @@
 package com.cherimoya.cherimoya.service;
 
+import com.cherimoya.cherimoya.entity.Balance;
 import com.cherimoya.cherimoya.entity.User;
 import com.cherimoya.cherimoya.enums.RoleStatus;
 import com.cherimoya.cherimoya.dao.UserRepository;
 import com.cherimoya.cherimoya.enums.UsersStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -43,6 +46,7 @@ public class UserService implements UserDetailsService {
         User user = this.userRepository.findByEmail(email);
         if (user != null) {
             user.setUsersStatus(UsersStatus.DELETED);
+
             this.userRepository.save(user);
         }
     }
@@ -106,5 +110,10 @@ public class UserService implements UserDetailsService {
         grantedAuthorities.add(simpleGrantedAuthority);
 
         return new org.springframework.security.core.userdetails.User(user.getName(),user.getPassword(),grantedAuthorities);
+    }
+
+    public Balance getBalance(){
+        Authentication authenticator = SecurityContextHolder.getContext().getAuthentication();
+        return userRepository.findByEmail(authenticator.getName()).getBalance();
     }
 }

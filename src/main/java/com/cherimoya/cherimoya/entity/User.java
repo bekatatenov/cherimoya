@@ -36,8 +36,9 @@ public class User {
     @Column(name = "CREATED_DATE")
     private Date date;
 
-    @Column(name = "REQUISITE")
-    private String requisite;
+    @JoinColumn(name = "BALANCE")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Balance balance;
 
     @Column(name = "PROFILE_PHOTO")
     private String profilePhoto;
