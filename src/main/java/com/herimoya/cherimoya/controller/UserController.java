@@ -45,7 +45,7 @@ public class UserController {
     @PostMapping(value = "/settings")
     public String userProfileEdit(@PathVariable(value = "id") Long id, @RequestParam String name, String email, String password,
                                   String phoneNumber, String requisite, String profilePhoto, Model model) {
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id).orElseThrow(null);
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
@@ -61,21 +61,23 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginPage(@RequestParam(value = "error",required = false)String error,
                                   @RequestParam(value = "logout",required = false)String logout){
-        ModelAndView model= new ModelAndView("home-main");
+        ModelAndView model= new ModelAndView();
         if (error != null) {
             model.addObject("error", "Почта или пароль неверны");
-            model.setViewName("home");
+            model.setViewName("login");
         }
         if (logout != null) {
             model.addObject("logout", "Logged out successfully.");
-            model.setViewName("home");
-        }else model.setViewName("/home-main");
+            model.setViewName("login");
+        }
         return model;
     }
 
     @GetMapping("/registration")
-    public String registrationPage() {
-        return "registration";
+    public ModelAndView registrationPage() {
+        ModelAndView modelAndView = new ModelAndView("registration");
+        modelAndView.addObject("user", new User());
+        return modelAndView;
     }
 
     @PostMapping(value = "/registration")
@@ -83,15 +85,15 @@ public class UserController {
         user.setDate(new Date());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRecipent(false);
-        user.setRoles(String.valueOf(RoleStatus.USER));
+        user.setRoles(RoleStatus.USER);
         user.setUsersStatus(UsersStatus.ACTIVE);
         this.userService.save(user);
-        return "home";
+        return "login";
     }
 
     @GetMapping("/delete-users")
-    public String delete() {
-        return "delete";
+    public String delete(Model model) {
+        return "/deleteUser";
     }
 
     @PostMapping(value = "/delete-users-by-email")
@@ -153,8 +155,8 @@ public class UserController {
     public String changeToRecipient(@ModelAttribute User user) {
         this.userService.recipient(user.getEmail());
         return "login";
-    }
-
+    }/*
+*/
     @GetMapping("/change-to-admin")
     public String admin() {
         return "getAdmin";

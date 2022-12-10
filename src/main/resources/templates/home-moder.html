@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -64,7 +65,8 @@
     <link href="css/carousel.css" rel="stylesheet">
 </head>
 <body>
-<header th:insert="blocks/header :: header"></header>
+
+<header th:insert="blocks/headerModer :: header"></header>
 
 <main>
 
@@ -80,7 +82,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="https://images.newscientist.com/wp-content/uploads/2019/12/09155101/gettyimages-494323067.jpg"
-                     width="2200" height="800" alt="...">
+                     width="2000" height="800" alt="...">
 
                 <div class="container">
                     <div class="carousel-caption text-start">
@@ -95,23 +97,23 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="https://www.sippycupmom.com/wp-content/uploads/2017/10/Charity-2-1.jpg" width="2200"
+                <img src="https://www.sippycupmom.com/wp-content/uploads/2017/10/Charity-2-1.jpg" width="2000"
                      height="800" alt="...">
 
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Новости</font></font>
-                        </h1>
-                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Просмотр
-                            сегодняшних новостей</font></font></p>
-                        <p><a class="btn btn-lg btn-primary" href="/news"><font
-                                style="vertical-align: inherit;"><font
-                                style="vertical-align: inherit;">Новости</font></font></a></p>
+                        <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Напиши
+                            пост</font></font></h1>
+                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Нету
+                            возможности лечиться от тяжелой болезни? Напиши о своей ситуации!</font></font></p>
+                        <p><a class="btn btn-lg btn-primary" href="/post/add"><font
+                                style="vertical-align: inherit;"><font style="vertical-align: inherit;">Написать
+                            пост</font></font></a></p>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="https://www.danspapers.com/wp-content/uploads/2018/12/iStock-827810230.jpg" width="2200"
+                <img src="https://www.danspapers.com/wp-content/uploads/2018/12/iStock-827810230.jpg" width="2000"
                      height="800" alt="...">
 
                 <div class="container">
@@ -135,7 +137,6 @@
             <span class="visually-hidden"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Следующий</font></font></span>
         </button>
     </div>
-
     <!-- ================================================== -->
     <div class="container marketing">
 
@@ -208,6 +209,7 @@
     <!-- ================================================== -->
 </main>
 
+
 <div th:insert="blocks/footer :: footer"></div>
 </body>
-</html>
+</html>c

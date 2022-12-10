@@ -68,7 +68,7 @@ public class CommentController {
         return "comment-edit";
     }
 
-    @PostMapping(value = "comment/{id}/edit")
+    @PostMapping(value = "/comment/edit-save")
     public String advertCommentEdit(@ModelAttribute Comment comment) {
         comment.setText(comment.getText());
         comment.setCStatus(Status.Active);
@@ -77,12 +77,10 @@ public class CommentController {
         return "redirect:/comment";
     }
 
-    @PostMapping(value = "comment/{id}/remove")
-    public String postCommentDelete(@PathVariable(value = "id") Long id, Model model) {
-        Comment comment = commentRepository.findById(id).orElseThrow();
+    @PostMapping(value = "/comment/remove-save")
+    public String postCommentDelete(@ModelAttribute Comment comment) {
         comment.setCreated_date_comment(new Date());
-        comment.setCStatus(Status.Delete);
-        commentRepository.save(comment);
+        commentRepository.delete(comment);
         return "redirect:/comment";
     }
 }

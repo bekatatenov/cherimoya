@@ -67,7 +67,7 @@ public class PostController {
         ArrayList<Post> res = new ArrayList<>();
         post.ifPresent(res::add);
         model.addAttribute("post", res);
-        return "/post/edit-save";
+        return "post-edit";
     }
 
     @PostMapping(value = "/post/edit-save")
@@ -80,13 +80,11 @@ public class PostController {
         postRepository.save(post);
         return "redirect:/post";
     }
-/*
-    @PostMapping(value = "/post-remove-save")
+
+    @PostMapping(value = "/post/remove-save")
     public String deleteById(@ModelAttribute Post post){
         post.setCreated_date_post(new Date());
-        post.setPStatus(Status.Delete);
-        this.postService.delete(post);
+        postRepository.delete(post);
         return "redirect:/post";
     }
-*/
 }

@@ -16,7 +16,7 @@
 <div class="container mt-5">
     <h1>Комментарии</h1>
     <div th:each="el : ${comments}" class="alert alert-info mt-2">
-        <h3 th:text="${el.text}"/>
+        <h3 th:text="${el.text}" class="card-text"/>
         <a th:href="'/comment/' + ${el.id}" class="btn btn-warning">Детальнее</a>
     </div>
 </div>

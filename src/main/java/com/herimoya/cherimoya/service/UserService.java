@@ -113,10 +113,10 @@ import java.util.Optional;
     public void update(com.herimoya.cherimoya.entity.User user) {
         this.userRepository.save(user);
     }
-
+/*
     public List<User> findAllUsers(){
         return userRepository.findAll();
-    }
+    }*/
 }
 
 

@@ -30,8 +30,8 @@
             </ul>
             <p><b>Просмотры: </b><span th:text="${el.views}"/></p>
             <div class="card-body">
-                <a th:href="'/post' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a> <br><br>
-                <form th:action="'/post' + ${el.id} + '/remove'" method="get">
+                <a th:href="'/post/' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a> <br><br>
+                <form th:action="'/post/remove-save'" method="post">
                     <button type="submit" class="btn btn-warning">Удалить</button>
                 </form>
             </div>
