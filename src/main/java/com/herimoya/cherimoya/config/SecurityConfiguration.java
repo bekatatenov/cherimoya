@@ -64,7 +64,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/post/add", "/post/edit-save", "/post/edit", "/post-remove-save", "/post/remove",
                         "/comment/add", "/comment/add-save", "/comment/edit", "/login",  "/profile", "/settings",
                         "/forgot-password", "/userPage", "/", "/home", "/home-main", "/login", "/registration", "/organization", "/news", "/post", "/post/**", "/comment",
-                        "/comment/**", "/forgot-password", "/technical/support", "/SupportMessage/add-save").permitAll()
+                        "/comment/**", "/technical/support", "/SupportMessage/add-save").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()

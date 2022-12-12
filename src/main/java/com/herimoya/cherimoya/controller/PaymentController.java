@@ -28,7 +28,7 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-        Balance commisions = balanceService.getBalanceByRequisites("123456789101");
+    //    Balance commisions = balanceService.getBalanceByRequisites("123456789101");
     @Autowired
     private PaymentRepository paymentRepository;
 
@@ -47,7 +47,7 @@ public class PaymentController {
     private BigDecimal plus(Balance balance, BigDecimal cash) {
         return balance.getAmount().add(cash).setScale(2, RoundingMode.HALF_EVEN);
     }
-
+/*
     @PostMapping(value = "/donate")
     public String donate(@RequestParam String requisites, @RequestParam BigDecimal cash) {
         User user = userService.auth();
@@ -95,7 +95,7 @@ public class PaymentController {
             return error(id);
         }
 
-    }
+    }*/
 
     @PatchMapping(value = "")
     public String error(@RequestParam Long id) {

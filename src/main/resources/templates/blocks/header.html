@@ -1,0 +1,37 @@
+<div th:fragment="header">
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="http://www.w3.org/2000/svg"></use>
+                    </svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 link-white">Home</a></li>
+                    <li><a href="https://bishkek.adresa-telefony.ru/blagotvoritelnye_fondy"
+                           class="nav-link px-2 link-white">Organization</a></li>
+                    <li><a href="/post" class="nav-link px-2 link-white">Posts</a></li>
+                    <li><a href="https://knews.kg/" class="nav-link px-2 link-white">News</a></li>
+                    <li><a href="/technical/support" class="nav-link px-2 text-white">Support</a></li>
+                </ul>
+                <br><br><br>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
+                           aria-label="Search">
+                </form>
+
+                <div class="text-end">
+                    <a sec:authorize="isAnonymous()"
+                       th:href="@{/login}" class="btn btn-outline-light me-2 login" role="button"
+                       aria-pressed="true">Login</a>
+                    <a sec:authorize="isAnonymous()"
+                       th:href="@{/registration}" class="btn btn-outline-light me-2 registration" role="button"
+                       aria-pressed="true">Sign-up</a>
+                </div>
+        </div>
+    </header>
+</div>

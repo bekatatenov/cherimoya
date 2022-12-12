@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<form th:action="@{/change-to-moder-by-email}" enctype="multipart/form-data" method="post" th:object="${user}">
+    <div><label> Email : <!--/*@thymesVar id="email" type=""*/-->
+    <input th:value="${email}" type="text" name="email"/> </label></div>
+    <div><input type="submit" value="Get Moder"/></div>
+</form>
+</body>
+</html>
