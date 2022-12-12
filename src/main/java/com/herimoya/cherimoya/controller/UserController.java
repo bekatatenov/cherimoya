@@ -60,12 +60,17 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginPage(@RequestParam(value = "error",required = false)String error,
+                                  @RequestParam(value = "sigin",required = false)String sigin,
                                   @RequestParam(value = "logout",required = false)String logout){
         ModelAndView model= new ModelAndView();
         if (error != null) {
             model.addObject("error", "Почта или пароль неверны");
             model.setViewName("login");
         }
+            if (sigin == null) {
+                model.addObject("sigin", "Sig in out successfully.");
+                model.setViewName("home-main");
+            }
         if (logout != null) {
             model.addObject("logout", "Logged out successfully.");
             model.setViewName("login");

@@ -26,8 +26,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String usersQuery;
     @Value("${spring.queries.roles-query}")
     private String rolesQuery;
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private DataSource dataSource;
 
@@ -64,9 +63,8 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/change-to-user-by-email").hasAnyAuthority(RoleStatus.MODER.name())
                 .antMatchers( "/post/add", "/post/edit-save", "/post/edit", "/post-remove-save", "/post/remove",
                         "/comment/add", "/comment/add-save", "/comment/edit", "/login",  "/profile", "/settings",
-                        "/forgot-password", "/userPage").hasAnyAuthority(RoleStatus.USER.name(), RoleStatus.RECIPIENT.name())
-                .antMatchers("/", "/home", "/home-main", "/login", "/registration", "/organization", "/news", "/post", "/post/**", "/comment",
-                        "/comment/**", "/forgot-password").permitAll()
+                        "/forgot-password", "/userPage", "/", "/home", "/home-main", "/login", "/registration", "/organization", "/news", "/post", "/post/**", "/comment",
+                        "/comment/**", "/forgot-password", "/technical/support", "/SupportMessage/add-save").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()
