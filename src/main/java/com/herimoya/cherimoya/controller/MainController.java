@@ -30,26 +30,6 @@ public class MainController {
     @Autowired
     SupportRepository supportRepository;
 
-
-    @GetMapping(value = "/")
-    public String home(Model model) {
-        return "home";
-    }
-
-
-    @GetMapping("/userPage")
-    public String userPage() {
-        return "userProfile";
-    }
-    @GetMapping("/moderPage")
-    public String moderPage() {
-        return "moder";
-    }
-    @GetMapping("/adminPage")
-    public String adminPage() {
-        return "admin";
-    }
-
     @GetMapping(value = "/organization")
     public String organization(Model model) {
         model.addAttribute("title", "Организации");

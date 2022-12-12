@@ -1,6 +1,5 @@
 package com.herimoya.cherimoya.controller;
 
-import com.herimoya.cherimoya.dao.BalanceRepository;
 import com.herimoya.cherimoya.entity.Balance;
 import com.herimoya.cherimoya.entity.User;
 import com.herimoya.cherimoya.enums.BalanceStatus;
