@@ -93,7 +93,10 @@ public class UserController {
     public String deleteByEmail(@ModelAttribute User user) {
         this.userService.delete(user.getEmail());
         if(user.getBalance()!=null){
-            user.getBalance().setStatus(BalanceStatus.DELETED);
+            Balance balance = user.getBalance();
+            balance.setStatus(BalanceStatus.DELETED);
+            balanceService.save(balance);
+
         }
         return "login";
     }
