@@ -1,6 +1,7 @@
 package com.cherimoya.cherimoya.entity;
 
 import com.cherimoya.cherimoya.enums.PaymentStatus;
+import com.cherimoya.cherimoya.enums.PaymentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,6 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "user")
-    @ManyToOne
-    private User user;
-
     @Column(name = "payment_date")
     private Date date;
 
@@ -41,8 +38,8 @@ public class Payment {
     @OneToOne(fetch = FetchType.EAGER)
     private Balance toBalance;
 
-    @JoinColumn(name = "post")
-    @OneToOne(fetch = FetchType.EAGER)
-    private Post post;
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private PaymentType type;
 
 }

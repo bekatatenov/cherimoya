@@ -62,10 +62,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.
                 authorizeRequests()
-                .antMatchers("/","/admin","/balance" ,"/reg-user-balance").hasAnyAuthority(RoleStatus.ADMIN.name())
-                .antMatchers("/","/moder").hasAnyAuthority(RoleStatus.MODER.name())
-                .antMatchers("/","user").hasAnyAuthority(RoleStatus.USER.name())
-                .antMatchers("/", "/login","/registration","hello","/delete-users","/delete-users-by-email","/active-users","/active-users-by-email","/balance","/balance/balancePage","/reg-user-balance").permitAll()
+                .antMatchers("/","/admin").hasAnyAuthority(RoleStatus.ADMIN.name())
+                .antMatchers("/","/moder","/activate-balance-by-id","/activate-balance-by-requisites","/activate-balance-by-email","/block-balance-by-email","/block-balance-requisites","/block-balance-by-id","/delete-users",
+                        "/delete-users-by-email","/active-users","/active-users-by-email").hasAnyAuthority(RoleStatus.MODER.name())
+                .antMatchers("/","user","/new-balance","/fill-balance","/withdraw-balance","/self-block-balance","/new-balance","/show-Balance","/balancePage","/balance-fill").hasAnyAuthority(RoleStatus.USER.name())
+                .antMatchers("/", "/login","/registration","hello"
+                        ).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()

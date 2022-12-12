@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+hello
+<form th:action="@{/fill-balance}" method="post">
+    <div><label> amount <input type="text" required name="amount1"/> </label></div>
+    <div><input type="submit" value="fill"/></div>
+</form>
+</body>
+</html>

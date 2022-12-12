@@ -8,6 +8,13 @@
 <h1 th:inline="text">You are in Moder page [[${#httpServletRequest.remoteUser}]]!</h1>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
+    <a th:href="@{/delete-users}"><input type="button" value="Delete users"/></a>
+    <a th:href="@{/active-users}"><input type="button" value="Active users"/></a>
+    <a th:href="@{/ban-users}"><input type="button" value="ban users"/></a>
+    <a th:href="@{/change-to-admin}"><input type="button" value="Change-to-admin"/></a>
+    <a th:href="@{/change-to-moder}"><input type="button" value="Change-to-moder"/></a>
+    <a th:href="@{/change-to-user}"><input type="button" value="Change-to-user"/></a>
+    <a th:href="@{/change-to-recipient}"><input type="button" value="Change-to-recipient"/></a>
 </form>
 </body>
 </html>

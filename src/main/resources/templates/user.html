@@ -9,5 +9,12 @@
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
+<h3 th:inline="text"> hello [[${#httpServletRequest.remoteUser}]]</h3>
+<form th:action="@{/balancePage}" method="get">
+    <input type="submit" value="balance"/>
+</form>
+<form th:action="@{/balance-fill}" method="get">
+    <input type="submit" value="fill balance"/>
+</form>
 </body>
 </html>

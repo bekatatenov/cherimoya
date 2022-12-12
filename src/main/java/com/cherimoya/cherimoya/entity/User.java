@@ -39,15 +39,8 @@ public class User {
     @JoinColumn(name = "BALANCE")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Balance balance;
-
-    @Column(name = "PROFILE_PHOTO")
-    private String profilePhoto;
-
     @Column(name = "RECIPENT")
     private boolean isRecipent;
-
-    @Column(name = "DOCUMENTSTATUS")
-    private DocumentStatus documentStatus;
 
     @Column(name = "ROLES")
     private String roles;
