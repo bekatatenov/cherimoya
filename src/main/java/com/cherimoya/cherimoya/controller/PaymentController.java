@@ -48,52 +48,52 @@ public class PaymentController {
         return balance.getAmount().add(cash).setScale(2, RoundingMode.HALF_EVEN);
     }
 
-//    @PostMapping(value = "/donate")
-//    public String donate(@RequestParam String requisites, @RequestParam BigDecimal cash) {
-//        User user = userService.auth();
-//        Payment payment = new Payment();
-//        payment.setDate(new Date());
-//        payment.setFromBalance(user.getBalance());
-//        payment.setToBalance(balanceService.getBalanceByRequisites(requisites));
-//        payment.setType(PaymentType.donate);
-//        payment.setStatus(PaymentStatus.success);
-//        payment.setAmount(cash.add(commissionPayment(cash)).setScale(2, RoundingMode.HALF_EVEN));
-//        Balance fromBalance = payment.getFromBalance();
-//        Balance toBalance = payment.getToBalance();
-//        if (minusCheck(fromBalance, payment.getAmount())) {
-//            fromBalance.setAmount(minus(fromBalance, cash));
-//            balanceService.save(fromBalance);
-//            toBalance.setAmount(plus(toBalance, cash));
-//            balanceService.save(toBalance);
-//            commisions.setAmount(commisions.getAmount().add(commissionPayment(cash)).setScale(2, RoundingMode.HALF_EVEN));
-//            balanceService.save(commisions);
-//        } else {
-//            payment.setStatus(PaymentStatus.error);
-//            return "error";
-//        }
-//        paymentService.save(payment);
-//        return "success";
-//    }
+    @PostMapping(value = "/donate")
+    public String donate(@RequestParam String requisites, @RequestParam BigDecimal cash) {
+        User user = userService.auth();
+        Payment payment = new Payment();
+        payment.setDate(new Date());
+        payment.setFromBalance(user.getBalance());
+        payment.setToBalance(balanceService.getBalanceByRequisites(requisites));
+        payment.setType(PaymentType.donate);
+        payment.setStatus(PaymentStatus.success);
+        payment.setAmount(cash.add(commissionPayment(cash)).setScale(2, RoundingMode.HALF_EVEN));
+        Balance fromBalance = payment.getFromBalance();
+        Balance toBalance = payment.getToBalance();
+        if (minusCheck(fromBalance, payment.getAmount())) {
+            fromBalance.setAmount(minus(fromBalance, cash));
+            balanceService.save(fromBalance);
+            toBalance.setAmount(plus(toBalance, cash));
+            balanceService.save(toBalance);
+            commisions.setAmount(commisions.getAmount().add(commissionPayment(cash)).setScale(2, RoundingMode.HALF_EVEN));
+            balanceService.save(commisions);
+        } else {
+            payment.setStatus(PaymentStatus.error);
+            return "error";
+        }
+        paymentService.save(payment);
+        return "success";
+    }
 
-//    @PatchMapping(value = "/cancel")
-//    public String cancel(@RequestParam Long id) {
-//        try {
-//            Payment payment = paymentService.getPaymentByID(id);
-//            payment.setStatus(PaymentStatus.canceled);
-//            Balance fromBalance = payment.getFromBalance();
-//            fromBalance.setAmount(plus(fromBalance, commissionPayment(payment.getAmount())));
-//            fromBalance.setAmount(plus(fromBalance, payment.getAmount()));
-//            balanceService.save(fromBalance);
-//            Balance toBalance = payment.getToBalance();
-//            toBalance.setAmount(minus(toBalance, payment.getAmount()));
-//            balanceService.save(toBalance);
-//            toBalance.setAmount(minus(commisions, commissionPayment(payment.getAmount())));
-//            balanceService.save(commisions);
-//            paymentService.save(payment);
-//            return "success";
-//        } catch (Exception e) {
-//            return error(id);
-//        }
+    @PatchMapping(value = "/cancel")
+    public String cancel(@RequestParam Long id) {
+        try {
+            Payment payment = paymentService.getPaymentByID(id);
+            payment.setStatus(PaymentStatus.canceled);
+            Balance fromBalance = payment.getFromBalance();
+            fromBalance.setAmount(plus(fromBalance, commissionPayment(payment.getAmount())));
+            fromBalance.setAmount(plus(fromBalance, payment.getAmount()));
+            balanceService.save(fromBalance);
+            Balance toBalance = payment.getToBalance();
+            toBalance.setAmount(minus(toBalance, payment.getAmount()));
+            balanceService.save(toBalance);
+            toBalance.setAmount(minus(commisions, commissionPayment(payment.getAmount())));
+            balanceService.save(commisions);
+            paymentService.save(payment);
+            return "success";
+        } catch (Exception e) {
+            return error(id);
+        }
 //
 //    }
 
